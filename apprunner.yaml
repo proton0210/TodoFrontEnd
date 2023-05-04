@@ -2,11 +2,16 @@ version: 1
 runtime: nodejs14
 build:
   commands:
-    - npm install
-    - npm run build
+    pre-build:
+      - npm install
+    build:
+      - npm run build
+  env:
+    - name: NODE_ENV
+      value: production
 run:
-  command: npm run preview -- --port $PORT
-  port: 8080
-  environment:
-    - NODE_ENV=production
-    - HOST=0.0.0.0
+  runtime-version: 14.x
+  command: npm run preview --port $PORT
+  network:
+    port: 8080
+    env: PORT
