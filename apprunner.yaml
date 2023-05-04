@@ -11,4 +11,3 @@ run:
   command: npm run preview
   network:
     port: 8080
-    env: PORT
