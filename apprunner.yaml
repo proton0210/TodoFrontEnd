@@ -7,7 +7,7 @@ build:
     build:
       - npm run build
 run:
-  runtime-version: 14.21.13
+  runtime-version: 14.21.3
   command: npm run preview --port $PORT
   network:
     port: 8080
