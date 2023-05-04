@@ -6,11 +6,8 @@ build:
       - npm install
     build:
       - npm run build
-  env:
-    - name: NODE_ENV
-      value: production
 run:
-  runtime-version: 14.x
+  runtime-version: 14.21.13
   command: npm run preview --port $PORT
   network:
     port: 8080
