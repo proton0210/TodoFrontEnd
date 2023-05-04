@@ -1,6 +1,6 @@
 version: 1
 port: 8080
-runtime: nodejs14.x
+runtime: nodejs14
 build:
   commands:
     - npm install
