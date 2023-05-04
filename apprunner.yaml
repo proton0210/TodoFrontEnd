@@ -7,6 +7,6 @@ build:
 run:
   command: npm run preview -- --port $PORT
   port: 8080
-environment:
-  - NODE_ENV=production
-  - HOST=0.0.0.0
+  environment:
+    - NODE_ENV=production
+    - HOST=0.0.0.0
