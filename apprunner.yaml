@@ -1,5 +1,5 @@
 version: 1
-runtime: nodejs14
+runtime: nodejs16
 build:
   commands:
     pre-build:
@@ -7,7 +7,7 @@ build:
     build:
       - npm run build
 run:
-  runtime-version: 14.21.3
+  runtime-version: 16.20.0
   command: npm run preview --port $PORT
   network:
     port: 8080
