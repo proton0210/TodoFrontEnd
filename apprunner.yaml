@@ -9,6 +9,6 @@ build:
 run:
   runtime-version: 16.20.0
   command: npm run preview -- --port 8080 --host 0.0.0.0
-  network:
-    port: 8080
-    env: PORT
+  # network:
+  #   port: 8080
+  #   env: PORT
