@@ -1,0 +1,11 @@
+version: 1
+port: 8080
+build:
+  commands:
+    - npm install
+    - npm run build
+run:
+  command: npm run preview
+  environment:
+    - NODE_ENV=production
+    - HOST=0.0.0.0
