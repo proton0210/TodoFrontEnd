@@ -1,4 +1,11 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { Auth } from "aws-amplify";
+
+type User = {
+  username: string;
+  email: string;
+  id: string;
+};
 interface AuthContextType {
   user: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
@@ -12,21 +19,23 @@ export const AuthContext = createContext<{
 });
 
 const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const getUser = async () => {
+      try {
+        const authUser = await Auth.currentAuthenticatedUser();
+        const user = {
+          username: authUser.username,
+          email: authUser.attributes.email,
+          id: authUser.attributes.sub,
+        };
+        setUser(user);
+      } catch (error) {
+        console.log("No user is authenticated");
+      }
+    };
+    getUser();
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
-    }
-  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
