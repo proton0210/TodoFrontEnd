@@ -1,21 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Auth } from "aws-amplify";
+import ConfirmSignUp from "./ConfirmSignUp";
 
 function SignupForm() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [username, setUsername] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const name = nameRef.current?.value as string;
     const email = emailRef.current?.value as string;
     const password = passwordRef.current?.value as string;
-    const confirmPassword = confirmPasswordRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value as string;
 
     if (password !== confirmPassword) {
-      console.log("Passwords don't match");
+      alert("Passwords don't match");
       return;
     }
 
@@ -28,7 +31,9 @@ function SignupForm() {
           given_name: name,
         },
       });
-      console.log(signUpResult);
+      setUsername(signUpResult.user.getUsername());
+
+      setConfirmModal(true);
       // Handle successful sign-up...
     } catch (error) {
       console.log(error);
@@ -37,70 +42,111 @@ function SignupForm() {
   };
 
   return (
-    <form className="max-w-md mx-auto mt-4" onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-          Name
-        </label>
-        <input
-          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="name"
-          type="text"
-          placeholder="Name"
-          ref={nameRef}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email"
-          type="email"
-          placeholder="Email"
-          ref={emailRef}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-bold mb-2"
-          htmlFor="password"
+    <div className="flex min-h-full flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-sm space-y-10">
+        <div>
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign up For your account
+          </h2>
+        </div>
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleSubmit}
         >
-          Password
-        </label>
-        <input
-          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="password"
-          placeholder="Password"
-          ref={passwordRef}
-        />
+          <div className="relative -space-y-px rounded-md shadow-sm">
+            <div className="pointer-events-none absolute inset-0 z-10 rounded-md ring-1 ring-inset ring-gray-300" />
+            <div>
+              <label htmlFor="name" className="sr-only">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Name"
+                ref={nameRef}
+              />
+            </div>
+            <div>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Email address"
+                ref={emailRef}
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Password"
+                ref={passwordRef}
+              />
+            </div>
+            <div>
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="confirm-password"
+                required
+                className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Confirm Password"
+                ref={confirmPasswordRef}
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="text-sm leading-6">
+              <a
+                href="#"
+                className="font-semibold text-indigo-600 hover:text-indigo-500"
+              >
+                Forgot password?
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-bold mb-2"
-          htmlFor="confirmPassword"
-        >
-          Confirm Password
-        </label>
-        <input
-          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          ref={confirmPasswordRef}
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Sign Up
-        </button>
-      </div>
-    </form>
+      {confirmModal && <ConfirmSignUp username={username} />}
+    </div>
   );
 }
 
