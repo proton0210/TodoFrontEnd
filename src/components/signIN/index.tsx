@@ -13,7 +13,7 @@ export default function SignInForm() {
     const email = emailRef.current?.value as string;
     const password = passwordRef.current?.value as string;
 
-    setIsLoading(true);
+    setIsLoading(!isLoading);
     try {
       const resp = await Auth.signIn(email, password);
       const userAttributes = {
