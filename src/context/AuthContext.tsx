@@ -5,6 +5,7 @@ type User = {
   username: string;
   email: string;
   id: string;
+  name: string;
 };
 interface AuthContextType {
   user: any;
@@ -28,6 +29,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
           username: authUser.username,
           email: authUser.attributes.email,
           id: authUser.attributes.sub,
+          name: authUser.attributes.given_name,
         };
         setUser(user);
       } catch (error) {

@@ -31,7 +31,7 @@ export default function SignInForm() {
   };
 
   if (user) {
-    return <div>Hello</div>;
+    return <div>Hello {user.name}</div>;
   }
   return (
     <div className="flex min-h-full flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
