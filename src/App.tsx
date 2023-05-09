@@ -1,11 +1,12 @@
 // import SignInForm from "./components/signIN";
-import SignupForm from "./components/signUP";
+import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import routes from "./routes/routes";
 function App() {
   return (
     <>
       <AuthProvider>
-        <SignupForm />
+        <RouterProvider router={routes} />
       </AuthProvider>
     </>
   );

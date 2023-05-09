@@ -1,12 +1,16 @@
 import { useRef, useState } from "react";
 import { Auth } from "aws-amplify";
-
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-export default function SignInForm() {
+interface Props {
+  toggleSignUpComponent: (toggle: boolean) => void;
+}
+export default function SignInForm({ toggleSignUpComponent }: Props) {
+  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,18 +25,16 @@ export default function SignInForm() {
         name: resp.attributes.given_name,
       };
       setUser(userAttributes);
+      navigate("/todo");
       // Handle successful sign-in...
     } catch (error) {
-      console.log(error);
+      alert(error);
       // Handle error...
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (user) {
-    return <div>Hello {user.name}</div>;
-  }
   return (
     <div className="flex min-h-full flex-1 items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-sm space-y-10">
@@ -126,6 +128,7 @@ export default function SignInForm() {
             <a
               href="#"
               className="font-medium text-indigo-600 hover:text-indigo-500"
+              onClick={() => toggleSignUpComponent(true)}
             >
               Sign up
             </a>

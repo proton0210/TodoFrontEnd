@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Auth } from "aws-amplify";
 import ConfirmSignUp from "./ConfirmSignUp";
-
-function SignupForm() {
+interface Props {
+  toggleSignUpComponent: (toggle: boolean) => void; // <-- Update the function signature
+}
+function SignupForm({ toggleSignUpComponent }: Props) {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -144,6 +146,18 @@ function SignupForm() {
             </button>
           </div>
         </form>
+        <div className="mt-4 text-center">
+          <p className="text-sm leading-5 text-gray-600">
+            Already have an account?
+            <a
+              href="#"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+              onClick={() => toggleSignUpComponent(false)}
+            >
+              Sign in
+            </a>
+          </p>
+        </div>
       </div>
       {confirmModal && <ConfirmSignUp username={username} />}
     </div>
