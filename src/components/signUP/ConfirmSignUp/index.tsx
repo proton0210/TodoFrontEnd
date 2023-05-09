@@ -1,6 +1,6 @@
-import { Fragment, useState, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Auth } from "aws-amplify";
+import { Fragment, useRef, useState } from "react";
 interface Props {
   username: string;
 }

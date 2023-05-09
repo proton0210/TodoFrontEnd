@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect, useContext } from "react";
 import { Auth } from "aws-amplify";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type User = {
   username: string;

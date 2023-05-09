@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
 import { Auth } from "aws-amplify";
+import React, { useRef, useState } from "react";
 import ConfirmSignUp from "./ConfirmSignUp";
 interface Props {
   toggleSignUpComponent: (toggle: boolean) => void; // <-- Update the function signature
