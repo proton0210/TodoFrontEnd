@@ -1,14 +1,20 @@
-import { useState } from "react";
-import SignupForm from "../../components/signUP";
-import SignInForm from "../../components/signIN";
-import { useAuth } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SignInForm from "../../components/signIN";
+import SignupForm from "../../components/signUP";
+import { useAuth } from "../../context/AuthContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/todo");
+    }
+  }, [user, navigate]);
+
   if (user) {
-    navigate("/todo");
     return null;
   }
 
