@@ -20,8 +20,9 @@ const HomePage = () => {
   }
 
   const [signUpComponent, toggleSignUpComponent] = useState(false);
-  if (signUpComponent)
+  if (signUpComponent) {
     return <SignupForm toggleSignUpComponent={toggleSignUpComponent} />;
+  }
   return <SignInForm toggleSignUpComponent={toggleSignUpComponent} />;
 };
 
