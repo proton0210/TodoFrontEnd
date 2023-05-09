@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 const HomePage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  //naviagte
+  //naviagtedsd
 
   useEffect(() => {
     if (user) {
