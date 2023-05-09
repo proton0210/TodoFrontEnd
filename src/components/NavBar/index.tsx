@@ -6,10 +6,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function NavBar() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -36,7 +32,7 @@ export default function NavBar() {
   };
   return (
     <Disclosure as="nav" className="bg-white shadow">
-      {({ open }) => (
+      {() => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
