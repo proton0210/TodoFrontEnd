@@ -1,5 +1,3 @@
-// give me tailwind form
-
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import useCreateTodoMutation from "../../hooks/createTodo";
@@ -8,7 +6,11 @@ type CreateTodoInput = {
   title: string;
 };
 
-export default function TodoForm() {
+interface TodoFormProps {
+  setShowTodoForm: (value: boolean) => void;
+}
+
+export default function TodoForm({ setShowTodoForm }: TodoFormProps) {
   const { user } = useAuth();
   const createTodoMutation = useCreateTodoMutation();
   const [title, setTitle] = useState("");
@@ -22,7 +24,7 @@ export default function TodoForm() {
     };
 
     try {
-      const result = await createTodoMutation.mutateAsync(todoData); // Pass accessToken directly
+      const result = await createTodoMutation.mutateAsync(todoData);
       console.log(result);
 
       // Reset the form fields or handle success
@@ -62,6 +64,13 @@ export default function TodoForm() {
             >
               Add
             </button>
+            <a
+              href="#"
+              className="font-semibold ml-3 text-sm text-gray-400 hover:text-gray-500"
+              onClick={() => setShowTodoForm(false)}
+            >
+              cancel
+            </a>
           </form>
         </div>
       </div>
