@@ -4,6 +4,7 @@ import App from "./App.tsx";
 
 import { Amplify } from "aws-amplify";
 import "./index.css";
+import { API_URL } from "./utils/constants.ts";
 
 Amplify.configure({
   Auth: {
@@ -27,6 +28,9 @@ Amplify.configure({
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: true,
   },
+  aws_appsync_graphqlEndpoint: API_URL,
+  aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
+  aws_appsync_region: "us-east-1",
 });
 
 // You can get the current config object

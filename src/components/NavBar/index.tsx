@@ -30,6 +30,7 @@ export default function NavBar() {
       alert(error);
     }
   };
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {() => (
