@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Edit from "./Edit";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 
 type TableProps = {
   data: Todo[];
@@ -13,6 +15,8 @@ type Todo = {
 };
 
 const Table: React.FC<TableProps> = ({ data }) => {
+  const [editTodoId, setEditTodoId] = useState<string | null>(null);
+
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -23,6 +27,14 @@ const Table: React.FC<TableProps> = ({ data }) => {
       second: "numeric",
     };
     return new Date(dateString).toLocaleString(undefined, options);
+  };
+
+  const handleEdit = (todoId: string) => {
+    setEditTodoId(todoId);
+  };
+
+  const handleCancelEdit = () => {
+    setEditTodoId(null);
   };
 
   return (
@@ -68,16 +80,39 @@ const Table: React.FC<TableProps> = ({ data }) => {
                       {todo.title}
                     </td>
                     <td className="px-3 py-3.5 text-left text-sm text-gray-500">
-                      {todo.completed ? "Completed" : "Incomplete"}
+                      {todo.completed ? (
+                        "Completed"
+                      ) : (
+                        <div className="flex items-center">
+                          <div className="group flex items-center">
+                            <XCircleIcon className="h-4 w-4 mr-1 text-red-500 group-hover:text-red-700" />
+                            <span className="group-hover:text-red-700">
+                              Incomplete
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </td>
                     <td className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       {/* Edit button */}
-                      <a
-                        href="#"
-                        className="text-indigo-600 hover:text-indigo-900"
-                      >
-                        Edit<span className="sr-only">, {todo.title}</span>
-                      </a>
+                      {editTodoId === todo.todoId ? (
+                        <React.Fragment>
+                          <Edit title={todo.title} />
+                          <button
+                            onClick={handleCancelEdit}
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            Edit
+                          </button>
+                        </React.Fragment>
+                      ) : (
+                        <button
+                          onClick={() => handleEdit(todo.todoId)}
+                          className="text-indigo-600 hover:text-indigo-900"
+                        >
+                          Edit
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
