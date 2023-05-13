@@ -97,7 +97,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                       {/* Edit button */}
                       {editTodoId === todo.todoId ? (
                         <React.Fragment>
-                          <Edit title={todo.title} />
+                          <Edit title={todo.title} todoId={todo.todoId} />
                           <button
                             onClick={handleCancelEdit}
                             className="text-indigo-600 hover:text-indigo-900"

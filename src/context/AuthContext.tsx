@@ -7,10 +7,12 @@ type User = {
   id: string;
   name: string;
 };
+
 interface AuthContextType {
   user: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
 }
+
 export const AuthContext = createContext<{
   user: null | any;
   setUser: (user: null | any) => void;

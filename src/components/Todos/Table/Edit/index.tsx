@@ -1,16 +1,31 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
+import useUpdateTodoMutation from "../../../../hooks/updateTodo";
 interface EditProps {
   title: string;
+  todoId: string;
 }
 
-export default function Edit({ title }: EditProps) {
-  const [open, setOpen] = useState(true);
+export default function Edit({ title, todoId }: EditProps) {
+  const { mutate } = useUpdateTodoMutation();
 
+  const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const handleCancel = () => {
     setOpen(false);
+  };
+
+  // log userId and todoId
+
+  const handleComplete = async () => {
+    const resp = await mutate({
+      todoId: todoId,
+      title,
+      completed: true,
+    });
+    console.log("Clicked complete");
+    console.log(resp);
+    handleCancel();
   };
 
   return (
@@ -67,6 +82,7 @@ export default function Edit({ title }: EditProps) {
                   <button
                     type="button"
                     className=" inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-500 sm:mt-0 sm:w-auto"
+                    onClick={handleComplete}
                   >
                     Complete
                   </button>
