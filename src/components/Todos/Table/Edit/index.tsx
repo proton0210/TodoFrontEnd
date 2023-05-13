@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import useUpdateTodoMutation from "../../../../hooks/updateTodo";
+import useDeleteTodoMutation from "../../../../hooks/deleteTodo";
 interface EditProps {
   title: string;
   todoId: string;
@@ -8,7 +9,7 @@ interface EditProps {
 
 export default function Edit({ title, todoId }: EditProps) {
   const { mutate } = useUpdateTodoMutation();
-
+  const deleteTodoMutation = useDeleteTodoMutation();
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const handleCancel = () => {
@@ -16,6 +17,10 @@ export default function Edit({ title, todoId }: EditProps) {
   };
 
   // log userId and todoId
+  const handleDelete = () => {
+    deleteTodoMutation.mutate(todoId);
+    handleCancel();
+  };
 
   const handleComplete = async () => {
     const resp = await mutate({
@@ -75,7 +80,7 @@ export default function Edit({ title, todoId }: EditProps) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setOpen(false)}
+                    onClick={handleDelete}
                   >
                     Delete
                   </button>

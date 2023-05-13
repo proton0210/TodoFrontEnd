@@ -12,11 +12,15 @@ const Todos = () => {
     return <div>Error occurred while fetching todos</div>;
   }
 
-  if (!data) return <h4 className="align-center"> Create Todo's</h4>;
+  const todos = data || []; // Ensure data is an array or use an empty array as a fallback
+
+  if (todos.length === 0) {
+    return <h4 className="text-center mt-5">Create Todo's</h4>;
+  }
 
   return (
     <div>
-      <Table data={data} />
+      <Table data={todos} />
     </div>
   );
 };
