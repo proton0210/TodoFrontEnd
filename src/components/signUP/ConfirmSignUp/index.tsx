@@ -1,10 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Auth } from "aws-amplify";
 import { Fragment, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 interface Props {
   username: string;
 }
 export default function ConfirmSignUp({ username }: Props) {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(true);
   const codeRef = useRef<HTMLInputElement>(null);
 
@@ -15,9 +18,10 @@ export default function ConfirmSignUp({ username }: Props) {
       await Auth.confirmSignUp(username, code);
       console.log("User confirmed sign up successfully");
       // Handle successful confirmation...
+      // navigate user to home page
+      navigate("/todo");
     } catch (error) {
-      console.log(error);
-      // Handle error...
+      console.log("Error confirming sign up", error);
     }
   };
   return (

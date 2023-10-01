@@ -24,12 +24,13 @@ export default function TodoForm({ setShowTodoForm }: TodoFormProps) {
     };
 
     try {
-      const result = await createTodoMutation.mutateAsync(todoData);
-      console.log(result);
+      await createTodoMutation.mutateAsync(todoData);
 
       // Reset the form fields or handle success
     } catch (error) {
       // Handle error
+    } finally {
+      setShowTodoForm(false);
     }
   };
 

@@ -4,6 +4,7 @@ import SignInForm from "../../components/signIN";
 import SignupForm from "../../components/signUP";
 import { useAuth } from "../../context/AuthContext";
 
+
 const HomePage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
