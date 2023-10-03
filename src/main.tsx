@@ -4,7 +4,6 @@ import App from "./App.tsx";
 
 import { Amplify } from "aws-amplify";
 import "./index.css";
-import { API_URL } from "./utils/constants.ts";
 
 Amplify.configure({
   Auth: {
