@@ -23,7 +23,7 @@ export default function Edit({ title, todoId }: EditProps) {
   };
 
   const handleComplete = async () => {
-    const resp = await mutate({
+    await mutate({
       todoId: todoId,
       title,
       completed: true,
