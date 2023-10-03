@@ -28,8 +28,7 @@ export default function Edit({ title, todoId }: EditProps) {
       title,
       completed: true,
     });
-    console.log("Clicked complete");
-    console.log(resp);
+
     handleCancel();
   };
 

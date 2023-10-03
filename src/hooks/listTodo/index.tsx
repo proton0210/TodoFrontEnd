@@ -14,7 +14,6 @@ type Todo = {
 const listTodos = async () => {
   try {
     const user = await Auth.currentAuthenticatedUser();
-    console.log("user", user.attributes.sub);
     const response = await API.graphql({
       query: `
         query ListTodos($userId: ID!) {
@@ -36,7 +35,7 @@ const listTodos = async () => {
     return (response as any).data.listTodos; // Use type assertion to any for response object
   } catch (error) {
     // Handle error if necessary
-    console.log(error);
+    console.error(error);
     throw error; // Rethrow the error or handle it according to your requirements
   }
 };

@@ -23,8 +23,6 @@ export default function TodoForm({ setShowTodoForm }: TodoFormProps) {
       title,
     };
 
-    console.table(todoData);
-
     try {
       await createTodoMutation.mutateAsync(todoData);
 

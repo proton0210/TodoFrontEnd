@@ -35,7 +35,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         };
         setUser(user);
       } catch (error) {
-        console.log("No user is authenticated");
+        console.error("No user is authenticated");
       }
     };
     getUser();

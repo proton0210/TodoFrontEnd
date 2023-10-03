@@ -38,7 +38,7 @@ function SignupForm({ toggleSignUpComponent }: Props) {
       setConfirmModal(true);
       // Handle successful sign-up...
     } catch (error) {
-      console.log(error);
+      console.error(error);
       // Handle error...
     }
   };

@@ -16,13 +16,10 @@ export default function ConfirmSignUp({ username }: Props) {
     const code = codeRef.current?.value as string;
     try {
       await Auth.confirmSignUp(username, code);
-      console.log("User confirmed sign up successfully");
       // Handle successful confirmation...
       // navigate user to home page
       navigate("/todo");
-    } catch (error) {
-      console.log("Error confirming sign up", error);
-    }
+    } catch (error) {}
   };
   return (
     <Transition.Root show={open} as={Fragment}>

@@ -18,7 +18,7 @@ const deleteTodo = async (todoId: string) => {
     return { todoId };
   } catch (error) {
     // Handle error if necessary
-    console.log(error);
+    console.error(error);
     throw error; // Rethrow the error or handle it according to your requirements
   }
 };

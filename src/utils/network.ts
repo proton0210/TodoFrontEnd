@@ -7,7 +7,7 @@ export const getCurrentSessionToken = async (): Promise<string> => {
     return accessToken;
   } catch (error) {
     // Handle error if necessary
-    console.log(error);
+    throw error;
     return ""; // Return an empty string or handle the error case accordingly
   }
 };

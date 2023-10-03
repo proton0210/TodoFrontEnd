@@ -24,7 +24,6 @@ export default function NavBar() {
 
   const handleSignOut = async () => {
     try {
-      console.log("Running Sign out");
       await Auth.signOut();
       window.history.pushState(null, "", "/");
       window.location.reload();

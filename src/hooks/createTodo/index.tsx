@@ -37,7 +37,6 @@ const createTodo = async (todoData: CreateTodoInput) => {
     return (response as any).data.createTodo; // Use type assertion to any for response object
   } catch (error) {
     // Handle error if necessary
-    console.log(error);
     throw error; // Rethrow the error or handle it according to your requirements
   }
 };

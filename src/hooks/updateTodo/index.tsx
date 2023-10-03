@@ -38,8 +38,7 @@ const updateTodo = async (todoData: UpdateTodoInput) => {
     return (response as any).data.updateTodo; // Use type assertion to any for response object
   } catch (error) {
     // Handle error if necessary
-    console.log(error);
-    throw error; // Rethrow the error or handle it according to your requirements
+    throw error;
   }
 };
 
