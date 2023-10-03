@@ -17,11 +17,12 @@ export default function TodoForm({ setShowTodoForm }: TodoFormProps) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const todoData: CreateTodoInput = {
       userId: user.id,
       title,
     };
+
+    console.table(todoData);
 
     try {
       await createTodoMutation.mutateAsync(todoData);
